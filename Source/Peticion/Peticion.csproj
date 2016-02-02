@@ -106,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HistoryView.xaml.cs">
+      <DependentUpon>HistoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HistoryViewModel.cs" />
     <Compile Include="IRequestHistory.cs" />
     <Compile Include="RequestHistory.cs" />
     <Compile Include="RequestView.xaml.cs">
@@ -113,6 +117,10 @@
     </Compile>
     <Compile Include="RequestViewModel.cs" />
     <Compile Include="UrlHelper.cs" />
+    <Page Include="HistoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

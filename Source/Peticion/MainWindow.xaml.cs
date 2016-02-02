@@ -21,8 +21,12 @@ namespace Peticion
 
             var requestHistory = new RequestHistory(sqlite);
 
-            var viewModel = new RequestViewModel(requestHistory);
-            var view = new RequestView(viewModel);
+            var requestViewModel = new RequestViewModel(requestHistory);
+            var requestView = new RequestView(requestViewModel);
+
+            var historyViewModel = new HistoryViewModel(requestHistory);
+            var historyView = new HistoryView(historyViewModel);
+
             Content = view;
         }
     }

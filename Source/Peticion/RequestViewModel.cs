@@ -20,12 +20,18 @@ namespace Peticion
 
             var canSendRequest = this.WhenAny(x => x.Url, url => UrlHelper.IsValidUrl(url.Value));
             SendRequest = ReactiveCommand.CreateAsyncTask(canSendRequest, SendRequestImpl);
+
+            this.ObservableForProperty(vm => vm.Url).Subscribe(_ =>
+            {
+                ResponseStatusCode = string.Empty;
+                ResponseBody = string.Empty;
+            });
         }
 
         public async Task SendRequestImpl(object _)
         {
             // No need to await this call.
-            requests.AddRequestAsync(new HttpRequest {Method = SelectedHttpMethod, Url = Url});
+            await requests.AddRequestAsync(new HttpRequest {Method = SelectedHttpMethod, Url = Url});
 
             var request = WebRequest.Create(Url);
             request.Method = SelectedHttpMethod.ToString();

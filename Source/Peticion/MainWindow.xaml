@@ -6,6 +6,9 @@
         mc:Ignorable="d"
         Title="Peticion" Height="350" Width="525">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
     </Grid>
 </Window>
