@@ -11,7 +11,8 @@ namespace Peticion
 
             this.WhenActivated(d =>
             {
-                this.OneWayBind(ViewModel, vm => vm.Requests, v => v.requestsListView.ItemsSource); 
+                this.OneWayBind(ViewModel, vm => vm.Requests, v => v.requestsListView.ItemsSource);
+                this.Bind(ViewModel, vm => vm.SelectedRequest, v => v.requestsListView.SelectedItem);
             });
         }
 

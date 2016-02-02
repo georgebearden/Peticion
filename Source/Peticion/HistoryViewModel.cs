@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Linq;
 using ReactiveUI;
 
 namespace Peticion
@@ -16,7 +17,17 @@ namespace Peticion
             {
                 Requests.Add(request);
             });
+
+            SelectedRequestObservable = this.ObservableForProperty(vm => vm.SelectedRequest).Select(r => r.Value);
         }
+
+        HttpRequest selectedRequest;
+        public HttpRequest SelectedRequest
+        {
+            get { return selectedRequest; }
+            set { this.RaiseAndSetIfChanged(ref selectedRequest, value); }
+        }
+        public IObservable<HttpRequest> SelectedRequestObservable { get; private set; } 
 
         public ReactiveList<HttpRequest> Requests { get; private set; } 
     }

@@ -12,7 +12,7 @@ namespace Peticion
     {
         readonly IRequestHistory requests;
 
-        public RequestViewModel(IRequestHistory requests)
+        public RequestViewModel(IRequestHistory requests, IObservable<HttpRequest> selectedRequested )
         {
             this.requests = requests;
             HttpMethods = new ReactiveList<HttpMethods>(Enum.GetValues(typeof(HttpMethods)).Cast<HttpMethods>());
@@ -23,9 +23,22 @@ namespace Peticion
 
             this.ObservableForProperty(vm => vm.Url).Subscribe(_ =>
             {
-                ResponseStatusCode = string.Empty;
-                ResponseBody = string.Empty;
+                Reset();
             });
+
+            selectedRequested.Subscribe(request =>
+            {
+                Reset();
+                SelectedHttpMethod = request.Method;
+                Url = request.Url;
+                SendRequest.Execute(null);
+            });
+        }
+
+        public void Reset()
+        {
+            ResponseStatusCode = string.Empty;
+            ResponseBody = string.Empty;
         }
 
         public async Task SendRequestImpl(object _)

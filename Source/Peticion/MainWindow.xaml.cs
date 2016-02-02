@@ -28,7 +28,7 @@ namespace Peticion
                 Grid.SetColumn(historyView, 0);
                 rootGrid.Children.Add(historyView);
 
-                var requestViewModel = new RequestViewModel(requestHistory);
+                var requestViewModel = new RequestViewModel(requestHistory, historyViewModel.SelectedRequestObservable);
                 var requestView = new RequestView(requestViewModel);
                 Grid.SetColumn(requestView, 1);
                 rootGrid.Children.Add(requestView);
