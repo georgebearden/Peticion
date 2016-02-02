@@ -4,17 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             Width="280"
+             Margin="10"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ItemsControl x:Name="requestsItemsControl">
-            <ItemsControl.ItemTemplate>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="History" FontSize="16" />
+        <ListView x:Name="requestsListView" Grid.Row="1" BorderBrush="Gray">
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" ToolTip="{Binding Url}">
                         <TextBlock Text="{Binding Method}" />
                         <TextBlock Text="{Binding Url}" TextTrimming="CharacterEllipsis" />
                     </StackPanel>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>    
-        </ItemsControl>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>

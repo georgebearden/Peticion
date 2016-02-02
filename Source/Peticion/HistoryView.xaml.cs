@@ -4,13 +4,14 @@ namespace Peticion
 {
     public partial class HistoryView : IViewFor<HistoryViewModel>
     {
-        public HistoryView()
+        public HistoryView(HistoryViewModel historyViewModel)
         {
             InitializeComponent();
+            ViewModel = historyViewModel;
 
             this.WhenActivated(d =>
             {
-                this.Bind(ViewModel, vm => vm.Requests, v => v.requestsItemsControl.ItemsSource); 
+                this.OneWayBind(ViewModel, vm => vm.Requests, v => v.requestsListView.ItemsSource); 
             });
         }
 

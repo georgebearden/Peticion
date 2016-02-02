@@ -7,7 +7,6 @@ namespace Peticion
         public RequestView(RequestViewModel requestViewModel)
         {
             InitializeComponent();
-
             ViewModel = requestViewModel;
 
             this.WhenActivated(d =>

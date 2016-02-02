@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using System.Windows.Controls;
 using SQLite.Net;
 using SQLite.Net.Async;
 using SQLite.Net.Platform.Win32;
@@ -17,17 +19,20 @@ namespace Peticion
                     new SQLiteConnectionString("requests.db", false)));
 
             var sqlite = new SQLiteAsyncConnection(connFactory);
-            sqlite.CreateTableAsync<HttpRequest>();
+            sqlite.CreateTableAsync<HttpRequest>().ContinueWith(_ =>
+            {
+                var requestHistory = new RequestHistory(sqlite);
 
-            var requestHistory = new RequestHistory(sqlite);
+                var historyViewModel = new HistoryViewModel(requestHistory);
+                var historyView = new HistoryView(historyViewModel);
+                Grid.SetColumn(historyView, 0);
+                rootGrid.Children.Add(historyView);
 
-            var requestViewModel = new RequestViewModel(requestHistory);
-            var requestView = new RequestView(requestViewModel);
-
-            var historyViewModel = new HistoryViewModel(requestHistory);
-            var historyView = new HistoryView(historyViewModel);
-
-            Content = view;
+                var requestViewModel = new RequestViewModel(requestHistory);
+                var requestView = new RequestView(requestViewModel);
+                Grid.SetColumn(requestView, 1);
+                rootGrid.Children.Add(requestView);
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
     }
 }
