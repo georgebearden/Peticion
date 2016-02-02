@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using System;
+using ReactiveUI;
 
 namespace Peticion
 {
@@ -9,6 +10,11 @@ namespace Peticion
             requests.GetRequestsAsync().ContinueWith(continuation =>
             {
                 Requests = new ReactiveList<HttpRequest>(continuation.Result);
+            });
+
+            requests.GetRequests().Subscribe(request =>
+            {
+                Requests.Add(request);
             });
         }
 

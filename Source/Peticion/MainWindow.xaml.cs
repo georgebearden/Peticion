@@ -32,6 +32,7 @@ namespace Peticion
                 var requestView = new RequestView(requestViewModel);
                 Grid.SetColumn(requestView, 1);
                 rootGrid.Children.Add(requestView);
+
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
     }
