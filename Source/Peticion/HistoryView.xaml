@@ -18,6 +18,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" ToolTip="{Binding Url}">
                         <TextBlock Text="{Binding Method}" />
+                        <TextBlock Text="" MinWidth="30" />
                         <TextBlock Text="{Binding Url}" TextTrimming="CharacterEllipsis" />
                     </StackPanel>
                 </DataTemplate>

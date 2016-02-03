@@ -10,10 +10,10 @@ namespace Peticion
 {
     public class RequestHistory : IRequestHistory
     {
-        readonly SQLiteAsyncConnection sqlite;
+        readonly ISQLiteAsyncConnection sqlite;
         readonly Subject<HttpRequest> requestSubj = new Subject<HttpRequest>();
 
-        public RequestHistory(SQLiteAsyncConnection sqlite)
+        public RequestHistory(ISQLiteAsyncConnection sqlite)
         {
             this.sqlite = sqlite;
         }

@@ -19,9 +19,11 @@ namespace Peticion
                     new SQLiteConnectionString("requests.db", false)));
 
             var sqlite = new SQLiteAsyncConnection(connFactory);
+            var sqliteWrapper = new SQLiteAsyncConnectionImpl(sqlite);
+
             sqlite.CreateTableAsync<HttpRequest>().ContinueWith(_ =>
             {
-                var requestHistory = new RequestHistory(sqlite);
+                var requestHistory = new RequestHistory(sqliteWrapper);
 
                 var historyViewModel = new HistoryViewModel(requestHistory);
                 var historyView = new HistoryView(historyViewModel);
