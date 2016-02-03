@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reactive.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Moq;
 using Xunit;
@@ -82,6 +85,38 @@ namespace Peticion.Tests
                 await requestHistory.AddRequestAsync(newRequest);
 
                 sqlite.Verify(s => s.InsertAsync(It.IsAny<HttpRequest>()), times.ToTimes());
+            }
+        }
+
+        public class GetRequestsObservable
+        {
+            /// <summary>
+            /// 9
+            /// </summary>
+            /// <param name="method"></param>
+            /// <param name="url"></param>
+            /// <param name="expectedResult"></param>
+            [Theory]
+            [InlineData(HttpMethods.Get, "http://localhost:3000/good", false)]
+            [InlineData(HttpMethods.Get, "http://localhost:3000/bad", true)]
+            [InlineData(HttpMethods.Put, "http://localhost:3000/good", true)]
+            public async void CallsOnNextWhenNewDataIsPersisted(HttpMethods method, string url, bool expectedResult)
+            {
+                var oldRequest = new HttpRequest(HttpMethods.Get, "http://localhost:3000/good");
+
+                var sqlite = new Mock<ISQLiteAsyncConnection>();
+                sqlite.Setup(s => s.Get<HttpRequest>()).Returns(Task.FromResult(new List<HttpRequest> { oldRequest }));
+
+                var newRequest = new HttpRequest(method, url);
+                var requestHistory = new RequestHistory(sqlite.Object);
+
+                // if onnext is not called by the time the timeout happens, then call OnException.
+                Observable.Timeout(requestHistory.GetRequestsObservable(), TimeSpan.FromSeconds(2))
+                    .Subscribe(
+                        _ => Assert.True(expectedResult),
+                        ex => Assert.False(expectedResult));
+
+                await requestHistory.AddRequestAsync(newRequest);
             }
         }
     }

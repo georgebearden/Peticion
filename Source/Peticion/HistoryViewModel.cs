@@ -8,15 +8,9 @@ namespace Peticion
     {
         public HistoryViewModel(IRequestHistory requests)
         {
-            requests.GetRequestsAsync().ContinueWith(continuation =>
-            {
-                Requests = new ReactiveList<HttpRequest>(continuation.Result);
-            });
-
-            requests.GetRequestsObservable().Subscribe(request =>
-            {
-                Requests.Add(request);
-            });
+            Requests = new ReactiveList<HttpRequest>();
+            requests.GetRequestsAsync().ContinueWith(continuation => Requests.AddRange(continuation.Result));
+            requests.GetRequestsObservable().Subscribe(request => Requests.Add(request));
 
             SelectedRequestObservable = this.ObservableForProperty(vm => vm.SelectedRequest).Select(r => r.Value);
         }
