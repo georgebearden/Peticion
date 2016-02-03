@@ -27,7 +27,7 @@ namespace Peticion
             requestSubj.OnNext(request);
         }
 
-        public IObservable<HttpRequest> GetRequests()
+        public IObservable<HttpRequest> GetRequestsObservable()
         {
             return requestSubj.AsObservable();
         }

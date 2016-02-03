@@ -7,7 +7,7 @@ namespace Peticion
     public interface IRequestHistory
     {
         Task AddRequestAsync(HttpRequest request);
-        IObservable<HttpRequest> GetRequests();
+        IObservable<HttpRequest> GetRequestsObservable();
         Task<List<HttpRequest>> GetRequestsAsync();
     }
 }

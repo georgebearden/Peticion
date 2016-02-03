@@ -13,7 +13,7 @@ namespace Peticion
                 Requests = new ReactiveList<HttpRequest>(continuation.Result);
             });
 
-            requests.GetRequests().Subscribe(request =>
+            requests.GetRequestsObservable().Subscribe(request =>
             {
                 Requests.Add(request);
             });
