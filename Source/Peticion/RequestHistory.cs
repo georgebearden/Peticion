@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
-using SQLite.Net.Async;
 
 namespace Peticion
 {
@@ -20,7 +19,7 @@ namespace Peticion
 
         public async Task AddRequestAsync(HttpRequest request)
         {
-            var loaded = await sqlite.Table<HttpRequest>().ToListAsync();
+            var loaded = await sqlite.Get<HttpRequest>();
             if (loaded.Any(r => r.Equals(request)))
                 return;
 
@@ -35,7 +34,7 @@ namespace Peticion
 
         public async Task<List<HttpRequest>> GetRequestsAsync()
         {
-            return await sqlite.Table<HttpRequest>().ToListAsync();
+            return await sqlite.Get<HttpRequest>();
         }
     }
 }
