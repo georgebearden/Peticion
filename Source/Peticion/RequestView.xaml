@@ -44,9 +44,12 @@
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Status Code:"  Margin="5" />
                     <TextBlock Grid.Row="0" Grid.Column="1" x:Name="responseStatusCodeTextBlock"  Margin="5" />
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Description:" VerticalAlignment="Top"  Margin="5" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" x:Name="responseBodyTextBlock"  Margin="5"
+                    <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                        <TextBlock  x:Name="responseBodyTextBlock"  Margin="5"
                                TextWrapping="Wrap"
-                               VerticalAlignment="Top" />
+                               VerticalAlignment="Top"  />
+                    </ScrollViewer>
+                    
                 </Grid>
             </Grid>
         </Border>
