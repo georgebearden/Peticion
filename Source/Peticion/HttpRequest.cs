@@ -4,6 +4,17 @@ namespace Peticion
 {
     public class HttpRequest
     {
+        public HttpRequest()
+        {
+            
+        }
+
+        public HttpRequest(HttpMethods method, string url)
+        {
+            Method = method;
+            Url = url;
+        }
+
         public HttpMethods Method { get; set; }
 
         public string Url { get; set; }
@@ -20,7 +31,9 @@ namespace Peticion
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return Url == null 
+                ? base.GetHashCode()
+                : Method.GetHashCode() + Url.GetHashCode();
         }
     }
 }

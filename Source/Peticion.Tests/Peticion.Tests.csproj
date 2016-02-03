@@ -83,8 +83,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HttpRequestTests.cs" />
     <Compile Include="RequestHistoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimesHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
